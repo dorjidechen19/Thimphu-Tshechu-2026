@@ -1,0 +1,1239 @@
+/* ================================================================
+   THIMPHU TSHECHU CULTURAL EXPERIENCE 2026
+   Main Stylesheet — style.css
+   
+   TABLE OF CONTENTS:
+   1.  CSS Variables (color palette)
+   2.  Reset & Base Styles
+   3.  Utility Classes
+   4.  Scroll Reveal Animation
+   5.  Floating WhatsApp Button
+   6.  Hero Section
+   7.  About / Description Section
+   8.  Highlights Section
+   9.  Itinerary / Accordion Section
+   10. Pricing Section
+   11. Why Choose Us Section
+   12. Call to Action Section
+   13. Footer
+   14. Mobile Responsive (max-width: 768px)
+================================================================ */
+
+
+/* ================================================================
+   1. CSS VARIABLES — Central color palette and design tokens
+================================================================ */
+:root {
+  /* Greens */
+  --deep-green:   #1a3a2a;
+  --forest:       #2d5a3d;
+  --sage:         #5a8a6a;
+
+  /* Golds */
+  --gold:         #c9a84c;
+  --gold-light:   #e8c97a;
+  --gold-pale:    #f5e9c8;
+
+  /* Backgrounds */
+  --cream:        #faf6ee;
+  --warm-white:   #fefcf7;
+
+  /* Earth tones */
+  --earth:        #8b6914;
+  --sienna:       #a0522d;
+
+  /* Text */
+  --text-dark:    #1c1c1c;
+  --text-mid:     #4a4a4a;
+  --text-light:   #7a7a7a;
+
+  /* Shadows */
+  --shadow-gold:  rgba(201, 168, 76, 0.25);
+  --shadow-green: rgba(26, 58, 42, 0.18);
+}
+
+
+/* ================================================================
+   2. RESET & BASE STYLES
+================================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+
+/* ================================================================
+   3. UTILITY CLASSES — Reusable helpers used across sections
+================================================================ */
+
+/* Centered max-width wrapper */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Narrower wrapper for itinerary section */
+.container.narrow {
+  max-width: 720px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Centers an element horizontally with auto margins */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* All sections share the same vertical padding */
+section {
+  padding: 90px 24px;
+}
+
+/* Small uppercase label above section titles */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+/* Main heading for each section */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  color: var(--deep-green);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+/* White version of section-title used on dark backgrounds */
+.section-title.light {
+  color: var(--warm-white);
+}
+
+/* Supporting text below a section title */
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  max-width: 640px;
+}
+
+/* White version of section-subtitle used on dark backgrounds */
+.section-subtitle.light {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Thin horizontal gold line used as a decorative divider */
+.gold-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-bottom: 28px;
+}
+
+/* Three-part decorative line with a diamond in the center */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin: 0 auto 40px;
+}
+
+.ornament-line span {
+  display: block;
+  height: 1px;
+  width: 80px;
+}
+
+.ornament-line span:first-child {
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.ornament-line span:last-child {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.ornament-line .diamond {
+  color: var(--gold);
+  font-size: 0.6rem;
+}
+
+/* Shared gold-to-earth gradient button (primary) */
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--earth));
+  color: #fff;
+  padding: 15px 38px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 6px 24px var(--shadow-gold);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(201, 168, 76, 0.5);
+}
+
+/* Transparent border button (secondary) */
+.btn-outline {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 14px 36px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+
+/* ================================================================
+   4. SCROLL REVEAL ANIMATION
+   Elements start hidden and slide up when they enter the viewport.
+   JavaScript adds the .visible class via IntersectionObserver.
+================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered delays for card grids */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* Keyframe used for hero elements (no JS needed, CSS only) */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* ================================================================
+   5. FLOATING WHATSAPP BUTTON
+   Fixed to the bottom-right corner, always visible while scrolling
+================================================================ */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: floatPulse 2.5s ease-in-out infinite;
+}
+
+.wa-float:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55);
+}
+
+.wa-float svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Subtle glow pulse on the WhatsApp button */
+@keyframes floatPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4); }
+  50%       { box-shadow: 0 8px 48px rgba(37, 211, 102, 0.65); }
+}
+
+
+/* ================================================================
+   6. HERO SECTION
+   Full viewport height, dark green with animated mandala rings
+================================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: var(--deep-green);
+}
+
+/* Layered gradient background inside the hero */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 80%, rgba(201,168,76,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(90,138,106,0.2)  0%, transparent 60%),
+    linear-gradient(160deg, #0e2318 0%, #1a3a2a 40%, #243d2c 70%, #1c2e1e 100%);
+}
+
+/* Decorative circular rings (mandala effect) */
+.hero-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  pointer-events: none;
+  animation: ringRotate 30s linear infinite;
+  /* Each ring gets a different size via nth-child below */
+}
+
+.hero-ring:nth-child(1) {
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-ring:nth-child(2) {
+  width: 820px;
+  height: 820px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 45s;
+  animation-direction: reverse;
+  border-color: rgba(201, 168, 76, 0.08);
+}
+
+.hero-ring:nth-child(3) {
+  width: 1060px;
+  height: 1060px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 60s;
+  border-color: rgba(201, 168, 76, 0.05);
+}
+
+@keyframes ringRotate {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Thin gold gradient lines at the very top and bottom of the hero */
+.hero-deco-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.hero-deco-line-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* All hero text sits above the rings (z-index: 2) */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 24px;
+  max-width: 800px;
+}
+
+/* Small pill badge above the title */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.8s ease both;
+}
+
+/* Main hero heading */
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 700;
+  color: var(--warm-white);
+  line-height: 1.08;
+  margin-bottom: 20px;
+  animation: fadeUp 0.8s 0.15s ease both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+/* One-liner description under the title */
+.hero-subtitle {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 560px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+  animation: fadeUp 0.8s 0.28s ease both;
+}
+
+/* Row of date / location / duration info */
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 44px;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.hero-meta-item .icon {
+  font-size: 1.1rem;
+}
+
+/* Book Now / View Itinerary buttons row */
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.52s ease both;
+}
+
+/* Animated scroll hint arrow at the bottom of the hero */
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.scroll-hint svg {
+  width: 20px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+
+/* ================================================================
+   7. ABOUT / DESCRIPTION SECTION
+   Light cream background, two-column layout
+================================================================ */
+.desc-section {
+  background: var(--warm-white);
+}
+
+/* Two-column grid: text | illustration */
+.desc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* Text column spacing between paragraphs */
+.desc-text p {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+
+.desc-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Right column: illustration + ornament line + quote */
+.desc-ornament {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Container for the SVG dzong illustration */
+.desc-dzong {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 4 / 3;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 24px 72px rgba(26, 58, 42, 0.2);
+}
+
+.dzong-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Italic quote below the illustration */
+.quote-text {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-style: italic;
+  max-width: 320px;
+}
+
+
+/* ================================================================
+   8. HIGHLIGHTS SECTION
+   Dark green background with five hover-animated feature cards
+================================================================ */
+.highlights-section {
+  background: var(--deep-green);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial glows layered over the dark background */
+.highlights-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 50%, rgba(90,138,106,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(201,168,76,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Card grid — auto-fills with min 280px wide cards */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual highlight card */
+.hl-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 4px;
+  padding: 36px 28px;
+  transition: background 0.35s, border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gold accent line that appears at the bottom on hover */
+.hl-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.hl-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(201, 168, 76, 0.5);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3);
+}
+
+.hl-card:hover::before {
+  opacity: 1;
+}
+
+.hl-icon {
+  font-size: 2.4rem;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.hl-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+
+.hl-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+}
+
+
+/* ================================================================
+   9. ITINERARY SECTION
+   Accordion-style expandable day cards with a vertical gold timeline
+================================================================ */
+.itinerary-section {
+  background: var(--cream);
+}
+
+/* Wrapper — the ::before pseudo-element draws the vertical line */
+.itinerary-timeline {
+  position: relative;
+  margin-top: 60px;
+}
+
+.itinerary-timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.2));
+}
+
+/* One day row: dot + header + collapsible body */
+.day-item {
+  position: relative;
+  padding-left: 76px;
+  margin-bottom: 12px;
+}
+
+/* Numbered circle on the timeline */
+.day-dot {
+  position: absolute;
+  left: 16px;
+  top: 20px;
+  width: 26px;
+  height: 26px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 3px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--deep-green);
+  z-index: 1;
+}
+
+/* Clickable accordion header */
+.day-header {
+  background: var(--warm-white);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 4px;
+  padding: 18px 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  user-select: none;
+}
+
+.day-header:hover {
+  background: var(--gold-pale);
+  border-color: var(--gold);
+  box-shadow: 0 4px 20px var(--shadow-gold);
+}
+
+/* Active (open) state turns the header dark green */
+.day-header.active {
+  background: var(--deep-green);
+  border-color: var(--gold);
+}
+
+.day-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* "Day 01 · 21 September" label */
+.day-number {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.day-header.active .day-number {
+  color: var(--gold-light);
+}
+
+/* "Arrival in the Dragon Kingdom" heading */
+.day-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--deep-green);
+}
+
+.day-header.active .day-title {
+  color: var(--warm-white);
+}
+
+/* The + icon that rotates to × when open */
+.day-toggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, background 0.25s;
+  flex-shrink: 0;
+  color: var(--gold);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.day-header.active .day-toggle {
+  background: rgba(201, 168, 76, 0.25);
+  transform: rotate(45deg);
+}
+
+/* Collapsible body — height animates from 0 to auto via max-height trick */
+.day-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;
+  background: var(--warm-white);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.day-body.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.day-body-inner {
+  padding: 20px 24px 24px;
+}
+
+/* Activity list inside an accordion body */
+.day-activities {
+  list-style: none;
+}
+
+.day-activities li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+  font-size: 0.93rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+.day-activities li:last-child {
+  border-bottom: none;
+}
+
+/* Small gold diamond bullet for each activity */
+.day-activities li::before {
+  content: '◆';
+  color: var(--gold);
+  font-size: 0.5rem;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+
+/* ================================================================
+   10. PRICING SECTION
+   Three package cards on a light earthy gradient background
+================================================================ */
+.pricing-section {
+  background: linear-gradient(135deg, #f5f0e8 0%, var(--warm-white) 100%);
+}
+
+/* Three-column responsive grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 60px;
+  align-items: start;
+}
+
+/* Individual price card */
+.price-card {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  background: var(--warm-white);
+  transition: transform 0.35s, box-shadow 0.35s;
+  position: relative;
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px var(--shadow-gold);
+}
+
+/* The featured (Standard) card has a gold border and stronger shadow */
+.price-card.featured {
+  border-color: var(--gold);
+  box-shadow: 0 12px 48px var(--shadow-gold);
+}
+
+/* "Most Popular" banner added via CSS on the featured card */
+.price-card.featured::before {
+  content: 'Most Popular';
+  display: block;
+  background: linear-gradient(90deg, var(--gold), var(--earth));
+  color: #fff;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px;
+}
+
+/* Dark green header area showing price */
+.price-header {
+  background: var(--deep-green);
+  padding: 32px 28px 24px;
+  text-align: center;
+}
+
+.price-tier {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--warm-white);
+  line-height: 1;
+}
+
+.price-amount sup {
+  font-size: 1.2rem;
+  vertical-align: top;
+  margin-top: 8px;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+/* The small "+" superscript on the Luxury price */
+.price-amount .plus-sign {
+  font-size: 1rem;
+  vertical-align: top;
+  margin-top: 8px;
+}
+
+.price-pp {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 6px;
+}
+
+/* White body area with feature list */
+.price-body {
+  padding: 28px;
+}
+
+/* One row in the feature list (icon + label + value) */
+.price-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+  font-size: 0.9rem;
+  color: var(--text-mid);
+}
+
+.price-feature:last-child {
+  border-bottom: none;
+}
+
+.price-feature-icon {
+  font-size: 1rem;
+  width: 22px;
+  text-align: center;
+}
+
+.price-feature-label {
+  font-weight: 600;
+  color: var(--deep-green);
+  min-width: 80px;
+  font-size: 0.82rem;
+}
+
+/* Gold CTA button at the bottom of each card */
+.price-cta {
+  display: block;
+  background: linear-gradient(135deg, var(--gold), var(--earth));
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 20px 28px 28px;
+  border-radius: 3px;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.price-cta:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+
+/* ================================================================
+   11. WHY CHOOSE US SECTION
+   Dark green background with five icon-based trust items
+================================================================ */
+.why-section {
+  background: var(--deep-green);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Warm glow effect rising from the bottom */
+.why-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 110%, rgba(201,168,76,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Auto-filling responsive grid */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  margin-top: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Single trust item */
+.why-item {
+  text-align: center;
+  padding: 28px 20px;
+}
+
+.why-icon {
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.why-item h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+
+.why-item p {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.65;
+}
+
+
+/* ================================================================
+   12. CALL TO ACTION SECTION
+   Final booking section with dark green gradient background
+================================================================ */
+.cta-section {
+  background: linear-gradient(135deg, #1a3a2a 0%, #243d2c 50%, #1c2e1e 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 24px;
+}
+
+/* Soft radial glow behind the content */
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Content wrapper sits above the glow */
+.cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Blinking "Limited Slots" urgency badge */
+.cta-badge {
+  display: inline-block;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+  animation: blink 1.8s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+/* Gold italic em used inside the CTA heading */
+.gold-italic {
+  font-style: italic;
+  color: var(--gold-light);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* Subtitle text below the CTA heading */
+.cta-sub {
+  color: rgba(255, 255, 255, 0.62);
+  max-width: 460px;
+  margin: 0 auto 40px;
+}
+
+/* Row of CTA buttons */
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Green WhatsApp booking button */
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  padding: 15px 36px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.3);
+}
+
+.btn-wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(37, 211, 102, 0.5);
+}
+
+/* Phone / email / website row at the bottom of the CTA */
+.cta-contacts {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.88rem;
+}
+
+.cta-contacts a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+.cta-contacts a:hover {
+  text-decoration: underline;
+}
+
+
+/* ================================================================
+   13. FOOTER
+================================================================ */
+footer {
+  background: #0e2318;
+  text-align: center;
+  padding: 28px 24px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+}
+
+.footer-brand {
+  color: var(--gold);
+}
+
+.footer-sub {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  opacity: 0.5;
+}
+
+
+/* ================================================================
+   14. MOBILE RESPONSIVE — screens narrower than 768px
+================================================================ */
+@media (max-width: 768px) {
+
+  /* Less padding on all sections */
+  section {
+    padding: 64px 20px;
+  }
+
+  /* Stack description section vertically, hide illustration */
+  .desc-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .desc-ornament {
+    display: none;
+  }
+
+  /* Move timeline line and dots inward */
+  .itinerary-timeline::before {
+    left: 16px;
+  }
+
+  .day-item {
+    padding-left: 52px;
+  }
+
+  .day-dot {
+    left: 4px;
+    width: 22px;
+    height: 22px;
+    top: 18px;
+  }
+
+  /* Tighten hero meta row */
+  .hero-meta {
+    gap: 16px;
+  }
+
+  /* Pricing stacks to single column */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* On mobile the floating WhatsApp button hides its text label */
+  .wa-float span {
+    display: none;
+  }
+
+  .wa-float {
+    padding: 14px;
+  }
+
+}
